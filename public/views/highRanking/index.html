@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hydra</title>
+	<meta name="description" content="Blueprint: A basic template for a page stack navigation effect" />
+	<meta name="keywords" content="blueprint, template, html, css, page stack, 3d, perspective, navigation, menu" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+	<link rel="stylesheet" type="text/css" href="views/highRanking/css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="views/highRanking/css/component.css" />
+	<script src="views/highRanking/js/modernizr-custom.js"></script>
+</head>
+
+<body>
+	<!-- navigation -->
+	<nav class="pages-nav">
+		<div class="pages-nav__item"><a class="link link--page" href="#page-home">Link between the soldier's location and it's performance </a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-docu">Soldiers which are to be retired </a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-manuals"> department with less than threshold employees </a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-software">Best performing soldeirs</a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-custom">Areas with high civillian casuality and their reason</a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-training"> Details of the dependents on the soldeir</a></div>
+<!-- 		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-buy"></a></div>
+		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-blog"></a></div>
+		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-contact"></a></div> -->
+
+
+	</nav>
+	<!-- /navigation-->
+	<!-- pages stack -->
+	<div class="pages-stack">
+		<!-- page -->
+		<div class="page" id="page-home">
+			<!-- Blueprint header -->
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc"> For high ranking personnel</a></p>
+				<p class="info">What is the distance between the current posting and hometown
+					location of a soldier and how can they be transferred for the most
+					efficient performance?
+				</p>
+				<button id = "hbutton1" style="font-size: 16px; padding: 5px 10px;" >get query</button>
+				<!-- <p id="pq1"> </p> -->
+				<table id = "hq1t" class ="table">
+					<tbody> </tbody>
+				</table>
+			</header>
+			<img class="poster" src="views/highRanking/images/1.jpg" alt="img01" />
+		</div>
+		<!-- /page -->
+		<div class="page" id="page-docu">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc"> For high ranking personnel</a></p>
+				<p class="info">
+					What are the soldiers after a particular age and at a particular rank
+						which can be retired?
+				</p>
+				<button id = "hbutton2" style="font-size: 16px; padding: 5px 10px;" >get query</button>
+				<!-- <p id="pq1"> </p> -->
+				<table id = "hq2t" class ="table">
+					<tbody> </tbody>
+				</table>
+			</header>
+			<img class="poster" src="views/highRanking/images/6.jpg" alt="img06" />
+		</div>
+		<div class="page" id="page-manuals">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">query</h1>
+				<p class="bp-header__desc"> For high ranking personnel</a></p>
+				<p class="info">
+					Are there any departments in a location with less than three employees?
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/2.jpg" alt="img02" />
+		</div>
+		<div class="page" id="page-software">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">query</h1>
+				<p class="bp-header__desc"> For high ranking personnel</a></p>
+				<p class="info">
+				who are the best performing soldiers based on several paramters such as number Of missions and their success percentage?
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/3.jpg" alt="img03" />
+		</div>
+		<div class="page" id="page-custom">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc">For high ranking personnel</p>
+				<p class="info">
+				What are some areas with surprisingly high civilian casualties and what was the reason for the attack?
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/4.jpg" alt="img04" />
+		</div>
+		<div class="page" id="page-training">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc">For high ranking personnel </p>
+				<p class="info">
+					Provide the details of dependents of a soldiers given his SID.
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/5.jpg" alt="img05" />
+		</div>
+<!-- 
+
+		<div class="page" id="page-buy">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Where to buy</h1>
+				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<p class="info">
+					"When people ask me why I don't eat meat or any other animal products, I say, 'Because they are unhealthy and they are the product of a violent and inhumane industry.'" &mdash;
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/6.jpg" alt="img06" />
+		</div>
+		<div class="page" id="page-blog">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Blog &amp; News</h1>
+				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<p class="info">
+					"The question is not, 'Can they reason?' nor, 'Can they talk?' but rather, 'Can they suffer?" &mdash; Jeremy Bentham
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/1.jpg" alt="img01" />
+		</div>
+		<div class="page" id="page-contact">
+			<header class="bp-header cf">
+				<h1 class="bp-header__title">Contact</h1>
+				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<p class="info">
+					"Man is the only animal that can remain on friendly terms with the victims he intends to eat until he eats them." &mdash; Samuel Butler
+				</p>
+			</header>
+			<img class="poster" src="views/highRanking/images/4.jpg" alt="img04" />
+		</div> -->
+	</div>
+	<!-- /pages-stack -->
+	<button class="menu-button"><span>Menu</span></button>
+	<script src="views/highRanking/js/classie.js"></script>
+	<script src="views/highRanking/js/main.js"></script>
+	<script src="views/highRanking/js/query.js"></script>
+</body>
+
+</html>

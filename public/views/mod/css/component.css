@@ -20,6 +20,7 @@ html.js,
 	background: #0e0f0f;
 }
 
+
 .js .pages-nav {
 	position: absolute;
 	top: 0;
@@ -324,3 +325,25 @@ html.js,
 		margin: 1em;
 	}
 }
+
+.table{
+	margin-top: 15px;
+	width: 60%;
+	overflow-y:scroll;
+   height:320px;
+   display:block;
+}
+
+th,td{
+	padding: 2px;
+}
+
+
+.button{
+	transition-duration: 0.4s;
+}
+.button:hover{
+	background-color: green;
+}
+
+

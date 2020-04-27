@@ -5,12 +5,14 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blueprint: Page Stack Navigation</title>
+	<title>Hydra</title>
 	<meta name="description" content="Blueprint: A basic template for a page stack navigation effect" />
 	<meta name="keywords" content="blueprint, template, html, css, page stack, 3d, perspective, navigation, menu" />
-	<meta name="author" content="Codrops" />
+	<meta name="author" content="shailesh vashisth" />
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
 	<link rel="stylesheet" type="text/css" href="views/mod/css/demo.css" />
 	<link rel="stylesheet" type="text/css" href="views/mod/css/component.css" />
 	<script src="views/mod/js/modernizr-custom.js"></script>
@@ -23,8 +25,8 @@
 		<div class="pages-nav__item"><a class="link link--page" href="#page-docu">budgeting of different locations of the army and check possible corruption</a></div>
 
 		<div class="pages-nav__item"><a class="link link--page" href="#page-manuals">diffusing a high profile hostage situation</a></div>
-		<div class="pages-nav__item"><a class="link link--page" href="#page-software">potential candidate for next commander in chief</a></div>
-		<div class="pages-nav__item"><a class="link link--page" href="#page-custom"></a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-software">potential candidates for promotion</a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-custom">efficiency of departments</a></div>
 		<div class="pages-nav__item"><a class="link link--page" href="#page-training"></a></div>
 		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-buy"></a></div>
 		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-blog"></a></div>
@@ -39,54 +41,84 @@
 		<div class="page" id="page-home">
 			<!-- Blueprint header -->
 			<header class="bp-header cf">
-				<span class="bp-header__present">Blueprint <span class="bp-tooltip bp-icon bp-icon--about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
-				<h1 class="bp-header__title">Page Stack Navigation</h1>
-				<p class="bp-header__desc">Which are some of the red alert areas and how many soldiers are
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc">For Ministry of Defence</a></p>
+				<p class="info">Which are some of the red alert areas and how many soldiers are
 				deployed there to control the situation?</p>
+				<button id = "button1" style="font-size: 16px; padding: 5px 10px;" >get query</button>
+				<!-- <p id="pq1"> </p> -->
+				<table id = "mq1t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/mod/images/1.jpg" alt="img01" />
 		</div>
 		<!-- /page -->
 		<div class="page" id="page-docu">
 			<header class="bp-header cf">
-				<h1 class="bp-header__title">Documentation</h1>
-				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc">For Ministry of Defence</a></p>
 				<p class="info">
-					"We cannot have peace among men whose hearts find delight in killing any living creature." &mdash; Rachel Carson
+					What is the budgeting of the different locations of the army and
+				are all the units working properly with no corruption?
 				</p>
+				<button id = "button2" style="font-size: 16px; padding: 5px 10px;" >get query</button>
+				<!-- <p id="pq1"> </p> -->
+				<table id = "mq2t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/mod/images/6.jpg" alt="img06" />
 		</div>
 		<div class="page" id="page-manuals">
 			<header class="bp-header cf">
-				<h1 class="bp-header__title">Manuals</h1>
-				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<h1 class="bp-header__title">query</h1>
+				<p class="bp-header__desc">For Ministry of Defence</a></p>
 				<p class="info">
-					"When you adopt a vegan diet we make a connection, you don't go back, it is not a diet, it is a lifestyle." &mdash; Freelee Frugivore
+					What are some of the closest and most trained Artillery units that can be dispatched to the entered Coordinates to diffuse a high profile hostage situation?
 				</p>
+				<p class="bp-header__desc"> Latitudes range from -90 to 90, and longitudes range from -180 to 80 <br>For example :- chennai latitude = 13.06 and longitude = 	80.23</a></p>
+				latitude: <input type="text" id="mq4ix" value ="">
+				longitude: <input type="text" id="mq4iy" value ="">
+				<button id = "button4" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
+				<table id = "mq4t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/mod/images/2.jpg" alt="img02" />
 		</div>
 		<div class="page" id="page-software">
 			<header class="bp-header cf">
-				<h1 class="bp-header__title">Software &amp; Downloads</h1>
-				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<h1 class="bp-header__title">query</h1>
+				<p class="bp-header__desc">For Ministry of Defence</a></p>
 				<p class="info">
-					"I decided to pick the diet that I thought would maximize my chances of long-term survival." &mdash; Al Gore
+					Who are the best potential candidates from a certain rank for a promotion with the most decorated service? </p>
+				<p class = "bp-header__desc">
+					the ranks should be one of these :- Sepoy, Lance Naik, Naik, Havildar, Subedar, Subedar Major, <br> Lieutenant, Captain, Major, Lieutenant Colonel, Colonel, Brigadier, Major General, Lieutenant General
 				</p>
+				rank: <input type="text" id="mq3i" value ="Major">
+				<button id = "button3" style="font-size: 16px; padding: 5px 10px;" >get query</button>
+				<table id = "mq3t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/mod/images/3.jpg" alt="img03" />
 		</div>
-		<div class="page" id="page-custom">
+ 		<div class="page" id="page-custom">
 			<header class="bp-header cf">
-				<h1 class="bp-header__title">Customization &amp; Settings</h1>
-				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc">For Ministry of Defence </p>
 				<p class="info">
-					"You have to make a conscious decision to change for your own well-being, that of your family and your country." &mdash;Bill Clinton
+					Listing the departments in  order of their efficiencies(average of success percent of the soldiers in that department).
 				</p>
+				<button id = "button5" style="font-size: 16px; padding: 5px 10px;" >get list</button>
+				<table id = "mq5t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/mod/images/4.jpg" alt="img04" />
 		</div>
+		<!--
 		<div class="page" id="page-training">
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">Training &amp; Learning Center</h1>
@@ -126,12 +158,13 @@
 				</p>
 			</header>
 			<img class="poster" src="views/mod/images/4.jpg" alt="img04" />
-		</div>
+		</div> -->
 	</div>
 	<!-- /pages-stack -->
 	<button class="menu-button"><span>Menu</span></button>
 	<script src="views/mod/js/classie.js"></script>
 	<script src="views/mod/js/main.js"></script>
+	<script src="views/mod/js/try.js"></script>
 </body>
 
 </html>
