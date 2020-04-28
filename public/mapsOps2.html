@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>My Google Map</title>
+
   <style>
     #map{
       height:800px;
@@ -42,7 +42,19 @@
         var line = []
         for(var i = 0; i < json.length; i++){
           //var bk = "mappins/"+json[i][3]+".png"
-          if(json[i][5]!=0){
+          if(json[i][5]!=0 ){
+            if(Number(json[i][1]) === Number(json[i][3])){
+              if(Number(json[i][2]) == Number(json[i][4])){
+                continue;
+              }
+            }
+            if(i == 11){
+              console.log(typeof(json[i][1]));
+              console.log(json[i][2]);
+              console.log(json[i][3]);
+              console.log(json[i][4]);
+            }
+
             var dict ={
               lat:json[i][3],
               lng:json[i][4]
@@ -60,6 +72,7 @@
           }
 
         }
+        addMarker({coords:{lat:json[0][1], lng: json[0][2]}});
         console.log(mymark);
         for(var i = 0;i < mymark.length;i++){
         // Add marker
