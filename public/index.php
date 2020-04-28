@@ -148,7 +148,11 @@ $app->get('/', function($request, $response, $args){
 				}
 				return $response->withJson(json_encode($locarray));
 			}
-		}		
+		}
+
+		else if ($p['query'] == 6) {
+					return  $this->view->render($response,"maps/index.html");
+				}		
 	}
 
 	elseif (isset($p['high']) && $p['query']) {
@@ -175,10 +179,163 @@ $app->get('/', function($request, $response, $args){
 			}
 		}
 	}
+
+	elseif (isset($p['ops']) && $p['query']) {
+		if($p['query'] == 1){
+			session_start();
+			$_SESSION['place'] = $p['place'];
+		}
+	}
+
+	else if(isset($p['map'])){
+		if($p['map'] == 1){
+			if($stmt = mysqli_prepare($conn,'select latitude, longitude, criticalLevel from location;
+				'))
+			{	
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z);
+				$locarray = array();
+				$i = 0;
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$i= $i+1;
+				}
+
+				return $response->withJson(json_encode($locarray));
+			}
+		}
+		else if($p['map'] == 2){
+			if($stmt = mysqli_prepare($conn,'
+				select l.latitude, l.longitude , (select count(*) from attacks a where a.location = l.name), 
+				(select sum(civilianCasualties) from attacks where location = l.name),
+				(select sum(serviceCasualties) from attacks where location = l.name)
+				from location l;'))
+			{	
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b);
+				$locarray = array();
+				$i = 0;
+				if(is_null($a)){
+					$a = 0;
+				}
+				if(is_null($b)){
+					$b = 0;
+				}
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;
+				}
+				//var_dump($locarray);
+				return $response->withJson(json_encode($locarray));
+			}
+		}
+
+		else if($p['map'] == 3){
+			if($stmt = mysqli_prepare($conn,'
+				select l.latitude, l.longitude , (select count(*) from inventory a where a.location = l.name),
+				(select sum(a.checkedGuns) from inventory a where a.location = l.name),
+				(select sum(a.checkedRation) from inventory a where a.location = l.name),
+				(select sum(a.actualAmmo) from inventory a where a.location = l.name)
+				from location l;'))
+			{	
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b, $c);
+				$locarray = array();
+				$i = 0;
+				if(is_null($a)){
+					$a = 0;
+				}
+				if(is_null($b)){
+					$b = 0;
+				}
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$locarray[$i]["6"] = $c;
+					$i= $i+1;
+				}
+				//var_dump($locarray);
+				return $response->withJson(json_encode($locarray));
+			}
+
+		}
+
+		else if($p['map'] == 4){
+			if($stmt = mysqli_prepare($conn,'
+				select l.latitude, l.longitude, l.securitylevel, 
+				(select count(*) from soldier where currentPosting = l.name),
+				(select count(*) from specialOpsAgents where currentLocation = l.name) 
+				from location l;
+				'))
+			{	
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b);
+				$locarray = array();
+				$i = 0;
+				if(is_null($a)){
+					$a = 0;
+				}
+				if(is_null($b)){
+					$b = 0;
+				}
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;
+				}
+				//var_dump($locarray);
+				return $response->withJson(json_encode($locarray));
+			}
+		}
+
+		else if($p['map'] == 5){
+			if($stmt = mysqli_prepare($conn,' select l1.latitude, l1.longitude, l2.latitude, l2.longitude, 
+			(select count(*) from communication where toLocation = l1.name and fromLocation = l2.name)
+			from location l1, location l2 where l1.name = ?;'))
+			{	session_start();
+				$id = $_SESSION['place'];
+				mysqli_stmt_bind_param($stmt, 's', $id );
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b);
+				$locarray = array();
+				$i = 0;
+				if(is_null($a)){
+					$a = 0;
+				}
+				if(is_null($b)){
+					$b = 0;
+				}
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;
+					//echo $b;
+				}
+				//var_dump($locarray);
+				return $response->withJson(json_encode($locarray));
+			}
+		}
+	}
 	else if(isset($p['email'])){
 
 		if ($stmt = mysqli_prepare($conn, 'SELECT * FROM Log WHERE Id = ?')) {
 			$id = $p['email'];
+
 			mysqli_stmt_bind_param($stmt, 'i', $id );
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_bind_result($stmt, $name, $pas, $prior);
@@ -187,7 +344,7 @@ $app->get('/', function($request, $response, $args){
 				$temp1 = $prior;
         		printf ("%s (%s) - (%s) \n", $name, $pas, $prior);
     		}
-    		var_dump($temp1);
+    		//var_dump($temp1);
     		if($temp1 == 1){
     			return $this->view->render($response,"mod/index.html");
     		}
@@ -200,6 +357,12 @@ $app->get('/', function($request, $response, $args){
     		}
     		else if($temp1 == 4){
     			return $this->view->render($response,"casualty/index.html");
+    		}
+    		else if($temp1 == 5){
+    			return $this->view->render($response,"inventory/index.html");
+    		}
+    		else if($temp1 == 6){
+    			return $this->view->render($response,"ops/index.html");
     		}
 
 			//Close the connection

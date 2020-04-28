@@ -84,6 +84,11 @@ $(document).ready(function(){
 		};
 		request.send()
 	})
+
+	$("#button6").click(function(){
+		window.location ="maps.html";
+
+	})
 })
 
 function populateTable5(json){
