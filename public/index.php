@@ -178,6 +178,29 @@ $app->get('/', function($request, $response, $args){
 				return $response->withJson(json_encode($locarray));
 			}
 		}
+
+		if($p['query'] == 3){
+			if($stmt = mysqli_prepare($conn,'select s.currentPosting, s.department from soldier s
+				where not exists
+				(select s1.department from
+				soldier s1, soldier s2, soldier s3 where
+				s1.department = s2.department and s2.department = s3.department and
+				s1.sid != s2.sid and s2.sid!=s3.sid and s1.sid != s3.sid and 
+				s1.currentPosting = s2.currentPosting and s2.currentPosting = s3.currentPosting and  s3.currentPosting = s.currentPosting);
+				'))
+			{	
+				mysqli_stmt_bind_result($stmt, $x, $y );
+				$locarray = array();
+				$i = 0;
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$i= $i+1;
+				}
+				//var_dump($locarray);
+				return $response->withJson(json_encode($locarray));
+			}
+		}
 	}
 
 	elseif (isset($p['ops']) && $p['query']) {

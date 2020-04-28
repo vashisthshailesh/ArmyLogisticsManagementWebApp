@@ -22,27 +22,18 @@ $(document).ready(function(){
 		request.send()
 	})
 
-	$("#button3").click(function(){
-		var rank  = document.getElementById('mq3i').value.toLowerCase();
-		var rankarr = ["sepoy", "lance naik", "naik", "havildar", "subedar", "subedar major",  "lieutenant",
-		"captain", "major", "lieutenant colonel", "colonel", "brigadier", "major general", "lieutenant general"];
-		if(rankarr.includes(rank)){
-			var y = rank.split(" ").join("_");
-			
+	$("#hbutton3").click(function(){
 		const request = new XMLHttpRequest();
-			request.open("get", "http://localhost:8000/?mod=1&query=3&val="+y);
-			request.onload = () => {
-				const unstructured = request.responseText.substring(1, request.responseText.length-1).split("\\").join("");
-				const json =JSON.parse(unstructured);
-				populateTable3(json);
-			};
+		request.open("get", "http://localhost:8000/?high=1&query=3");
+		request.onload = () => {
+			const unstructured = request.responseText.substring(1, request.responseText.length-1).split("\\").join("");
+			
+			const json =JSON.parse(unstructured);
+			populateTable3(json);
+		};
 		request.send()
 
-		}
-		else{
-			console.log(rank);
-			alert("Please choose a correct rank ");
-		}
+		
 	})
 
 
@@ -87,6 +78,28 @@ $(document).ready(function(){
 })
 
 
+
+function populateTable3(json){
+	const tablebody = document.querySelector("#hq3t > tbody");
+	
+	while(tablebody.firstChild){
+		tablebody.removeChild(tablebody.firstChild);
+	}
+	if(json.length == 0){
+		document.getElementById("h3p").innerHTML = " No such departments are there."
+	}
+
+	for (var i = 0; i < json.length; i++){
+		const tr = document.createElement("tr");
+		for(var j = 1; j< 7; j++){
+			const td1 = document.createElement("td");
+			td1.textContent = json[i][j];
+			tr.appendChild(td1);
+
+		}
+		tablebody.appendChild(tr);
+	}
+}
 function populateTable(json){
 	const tablebody = document.querySelector("#hq1t > tbody");
 		
@@ -104,7 +117,5 @@ function populateTable(json){
 		}
 		tablebody.appendChild(tr);
 	}
-
-
 }
 
