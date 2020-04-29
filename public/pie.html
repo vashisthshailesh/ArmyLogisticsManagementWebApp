@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<body>
+
+
+<div id="piechart"></div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+
+  ['Potential Security Threats', 'count of the Threats'],
+  ['Terrorist Movement',7],
+  ['Chatter in Terrorist cells', 12],
+  ['Bypassing enemy Lines', 5],
+  ['Theft of Military Equipment',9],
+  ['Counterfeiting', 10],
+  ['Guerrilla Warfare units', 8],
+  ['Military Intel leaks', 10],
+  ['Identity Theft', 5],
+  ['Natural Disaster', 13],
+  ['Nuclear , Biological or Chemical (NBC) attack', 9],
+  ['Potential Air Strike',12]
+
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Potential Security Threats', 'width':1200, 'height':800};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+
+</body>
+</html>

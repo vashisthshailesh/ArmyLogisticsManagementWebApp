@@ -24,7 +24,8 @@
 		<div class="pages-nav__item"><a class="link link--page" href="#page-home">Bonus for the employees</a></div>
 		<div class="pages-nav__item"><a class="link link--page" href="#page-docu">employee recruitment</a></div>
 
-		<!-- <div class="pages-nav__item"><a class="link link--page" href="#page-manuals">diffusing a high profile hostage situation</a></div>
+		<div class="pages-nav__item"><a class="link link--page" href="#page-manuals">detail of retired officers based on location</a></div>
+		<!-- 
 		<div class="pages-nav__item"><a class="link link--page" href="#page-software">potential candidate for next commander in chief</a></div>
 		<div class="pages-nav__item"><a class="link link--page" href="#page-custom"></a></div>
 		<div class="pages-nav__item"><a class="link link--page" href="#page-training"></a></div>
@@ -44,6 +45,10 @@
 				<h1 class="bp-header__title">Query</h1>
 				<p class="bp-header__desc">For Employee management</a></p>
 				<p class="info">What are the recommended bonuses which can be given to the employees?</p>
+				<button id = "ebutton1" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
+				<table id = "eq1t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/emp/images/1.jpg" alt="img01" />
 		</div>
@@ -55,20 +60,31 @@
 				<p class="info">
 					Do any new employees need to be hired at a particular location?
 				</p>
+				location: <input type="text" id="eq2i" value ="">
+				<button id = "ebutton2" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
+				<table id = "eq2t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/emp/images/6.jpg" alt="img06" />
 		</div>
-<!-- 		<div class="page" id="page-manuals">
+		<div class="page" id="page-manuals">
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">query</h1>
-				<p class="bp-header__desc">For Ministry of Defence</a></p>
+				<p class="bp-header__desc">For Employee management</a></p>
 				<p class="info">
-					What are some of the closest and most trained Artillery units that can be dispatched to the entered Coordinates to diffuse a high profile hostage situation?
+					Detail of retired officers based on the given input location.<br>
+					location should belong to leimakhong, Dras, yol, gurez .
 				</p>
+				location: <input type="text" id="eq3i" value ="">
+				<button id = "ebutton3" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
+				<table id = "eq3t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/emp/images/2.jpg" alt="img02" />
 		</div>
-		<div class="page" id="page-software">
+<!-- 		<div class="page" id="page-software">
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">query</h1>
 				<p class="bp-header__desc">For Ministry of Defence</a></p>
@@ -134,6 +150,7 @@
 	<button class="menu-button"><span>Menu</span></button>
 	<script src="views/emp/js/classie.js"></script>
 	<script src="views/emp/js/main.js"></script>
+	<script src="views/emp/js/query.js"></script>
 </body>
 
 </html>

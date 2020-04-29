@@ -25,9 +25,12 @@ $app->get('/', function($request, $response, $args){
 	$p = $request->getParams();
 
 
-
-	$host = 'dbmsserver20.mysql.database.azure.com';
-	$username = 'Rishabh@dbmsserver20';
+	//old
+	 // $host = 'dbmsserver20.mysql.database.azure.com';
+	 // $username = 'Rishabh@dbmsserver20';
+	//new
+	$host = 'dbms20.mysql.database.azure.com';
+	$username = 'Vrinda@dbms20';
 	$password = 'DbMsGroup#2020#';
 	$db_name = 'militaryDB';
 
@@ -37,7 +40,6 @@ $app->get('/', function($request, $response, $args){
 	if (mysqli_connect_errno($conn)) {
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}
-
 
 
 	if(isset($p['mod']) && isset($p['query']) ){
@@ -62,7 +64,7 @@ $app->get('/', function($request, $response, $args){
 		}
 
 		else if($p['query'] == 2){
-			if($stmt = mysqli_prepare($conn,'select s.hometownLocation, sum(s.salary) , 20*sum(i.expectedRation) , 5*sum(i.expectedAmmo) , 100*sum(i.expectedGuns) , sum(s.salary + i.expectedRation + i.expectedAmmo + i.expectedGuns) from soldier s, inventory i where s.hometownLocation = i.location group by s.hometownLocation order by sum(s.salary + i.expectedRation + i.expectedAmmo + i.expectedGuns) desc;'))
+			if($stmt = mysqli_prepare($conn,'select s.currentPosting, sum(s.salary) , 20*sum(i.expectedRation) , 5*sum(i.expectedAmmo) , 100*sum(i.expectedGuns) , sum(s.salary + i.expectedRation + i.expectedAmmo + i.expectedGuns) from soldier s, inventory i where s.currentPosting = i.location group by s.currentPosting order by sum(s.salary + i.expectedRation + i.expectedAmmo + i.expectedGuns) desc;'))
 			{
 				mysqli_stmt_execute($stmt);
 				mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b, $c);
@@ -179,6 +181,33 @@ $app->get('/', function($request, $response, $args){
 			}
 		}
 
+		if($p['query'] == 2){
+			if($stmt = mysqli_prepare($conn,'insert into veteran
+			select SID, name, rank, department, hometownLocation, bankAccount, salary/10, age, sex, curdate()
+			from soldier where age >=? and currentPosting=?;
+				'))
+			{	$age = $p['age'];
+				$loc = $p['loc'];
+				mysqli_stmt_bind_param($stmt,"is",$age,$loc);
+				mysqli_stmt_execute($stmt);
+				// mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b);
+				// $locarray = array();
+				// $i = 0;
+				// while (mysqli_stmt_fetch($stmt)) {
+				// 	$locarray[$i]["1"] = $x;
+				// 	$locarray[$i]["2"] = $y;
+				// 	$locarray[$i]["3"] = $z;
+				// 	$locarray[$i]["4"] = $a;
+				// 	$locarray[$i]["5"] = $b;
+				// 	$i= $i+1;
+				// }
+				//return $response->withJson(json_encode($locarray));
+			}
+			else{
+				echo"sds";
+			}
+		}
+
 		if($p['query'] == 3){
 			if($stmt = mysqli_prepare($conn,'select s.currentPosting, s.department from soldier s
 				where not exists
@@ -201,9 +230,221 @@ $app->get('/', function($request, $response, $args){
 				return $response->withJson(json_encode($locarray));
 			}
 		}
+
+		if($p['query'] == 4){
+			if($stmt = mysqli_prepare($conn,'select SID, name, rank, currentPosting, successPercent from soldier where (noOfMissions >= (age-20)/2 and successPercent >=93) order by successPercent DESC;
+				'))
+			{	
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z ,$a, $b);
+				$locarray = array();
+				$i = 0;
+				while (mysqli_stmt_fetch($stmt) && $i<10) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;
+				}
+				//var_dump($locarray);
+				 return $response->withJson(json_encode($locarray));
+			}
+			else{
+				echo"sd";
+			}
+		}
+
+		if($p['query'] == 5){
+			if($stmt = mysqli_prepare($conn,'select location,sum(civilianCasualties) as totalCivilianCasualties, description from attacks group by location having totalCivilianCasualties>=20;
+				'))
+			{	
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z);
+				$locarray = array();
+				$i = 0;
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$i= $i+1;
+				}
+				return $response->withJson(json_encode($locarray));
+			}
+		}
+
+		if($p['query'] == 6){
+			if($stmt = mysqli_prepare($conn,'Select DID, name, location, age, sex from Dependent where SID = ?;
+				'))
+			{	
+				$sids = $p['sid'];
+				mysqli_stmt_bind_param($stmt,"i" ,$sids);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z, $a, $b);
+				$locarray = array();
+				$i = 0;
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;
+				}
+				return $response->withJson(json_encode($locarray));
+			}
+		}
 	}
 
-	elseif (isset($p['ops']) && $p['query']) {
+	else if(isset($p['emp']) && isset($p['query']) ){
+		if($p['query'] == 1){
+			if($stmt = mysqli_prepare($conn,'select e.name, e.bankAccount, (salary*age)/100  + (l.criticalLevel)*2000 as "Recommended Bonus"
+		from Employee e, Location l
+		where e.age > 20 and e.location = l.name
+		order by (salary*age)/100  + (l.criticalLevel)*2000 desc;')){
+				$locarray = array();
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+		}
+
+		else if($p['query'] == 2){
+			if($stmt = mysqli_prepare($conn,'select e.department, count(*) as "Total Employees", sum(e.salary) as "Total Budget"
+				from Employee e where e.location = ? and e.department not in (
+				    select e1.department
+				    from Employee e1, Employee e2, Employee e3 where
+				    e1.location = ? and e2.location = ? and e3.location = ? and 
+				    e1.EID != e2.EID and e2.EID != e3.EID and e1.EID != e3.EID and
+				    e1.department = e2.department and e2.department = e3.department
+				)
+				group by e.department
+				order by sum(e.salary) desc;')){
+				$locarray = array();
+				$id = $p['loc'];
+				mysqli_stmt_bind_param($stmt,'ssss',$id, $id, $id, $id);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$i= $i+1;	        		
+    			}
+    			return $response->withJson(json_encode($locarray));
+			}
+		}
+		else if($p['query'] == 3){
+			if($stmt = mysqli_prepare($conn,'select name, retirementRank, retirementDate, age from veteran 
+				where veteran.location = ? ;')){
+				$locarray = array();
+				$id = $p['loc'];
+				mysqli_stmt_bind_param($stmt,'s',$id);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z,$a);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+		}
+	}
+
+	else if(isset($p['cas']) && isset($p['query']) ){
+		if($p['query'] == 1){
+			$xcor = strval($p['x']);
+			$ycor = strval($p['y']);
+			$qu = 'select e.EID, e.name, e.location from employee e, location l where e.designation = "Doctor" and e.location = l.name and (power( l.latitude - '."$xcor" .', 2) + power(l.longitude - '."$ycor".' , 2)) in (select min(power('."$xcor".' - l.latitude, 2) + power('."$ycor".' - l.longitude, 2)) from location l) and not exists(select eidDoctor, count(*) AS cc from martyr m group by eidDoctor having cc > 15);';
+			if($stmt = mysqli_prepare($conn,$qu)){
+				$locarray = array();
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+			else{
+				echo's;';
+			}
+		}
+		if($p['query'] == 2){
+			$xcor = strval($p['x']);
+			$ycor = strval($p['y']);
+			$blood = $p['blood'];
+			
+			$qu = 'select s.SID, s.name, s.currentPosting, s.bloodGroup,  (s.height*1000)/(weight*weight) as "BMI"
+				from soldier s, location l 
+				where s.currentPosting = l.name and 
+				(power('."$xcor".' - l.latitude, 2) + power('."$ycor".' - l.longitude, 2)) in 
+				(select min(power('."$xcor".' - l.latitude, 2) + power('."$ycor".' - l.longitude, 2))
+				from location l
+				) and s.bloodGroup = ? and
+				(s.height*1000)/(weight*weight) between 15.5 and 30.9;
+				';
+
+		
+
+// 			$qu ="select s.SID, s.name, s.currentPosting, s.bloodGroup,  (s.height*1000)/(weight*weight) as 'BMI'
+// from soldier s, location l 
+// where s.currentPosting = l.name and 
+// (power('100' - l.latitude, 2) + power('200' - l.longitude, 2)) in 
+// (select min(power('100' - l.latitude, 2) + power('200' - l.longitude, 2))
+// from location l
+// ) and s.bloodGroup = 'A-' and
+// (s.height*1000)/(weight*weight) between 15.5 and 30.9;
+// ";
+			if($stmt = mysqli_prepare($conn,$qu)){
+				$locarray = array();
+				mysqli_stmt_bind_param($stmt,'s',$blood);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z, $a, $b);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+			else{
+				echo's;';
+			}
+		}
+	}
+
+
+
+	else if (isset($p['ops']) && $p['query']) {
 		if($p['query'] == 1){
 			session_start();
 			$_SESSION['place'] = $p['place'];
@@ -353,6 +594,35 @@ $app->get('/', function($request, $response, $args){
 				return $response->withJson(json_encode($locarray));
 			}
 		}
+	}
+
+	else if(isset($p['pie'])){
+
+		if($stmt = mysqli_prepare($conn,' select count(*), description from PotentialSecurityThreats group by description;'))
+			{	session_start();
+				$id = $_SESSION['place'];
+				
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y );
+				$locarray = array();
+				$i = 0;
+				if(is_null($a)){
+					$a = 0;
+				}
+				if(is_null($b)){
+					$b = 0;
+				}
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+
+					$i= $i+1;
+					//echo $b;
+				}
+				var_dump($locarray);
+				//return $response->withJson(json_encode($locarray));
+			}
+
 	}
 	else if(isset($p['email'])){
 

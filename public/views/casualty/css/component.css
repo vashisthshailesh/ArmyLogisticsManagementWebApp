@@ -10,6 +10,7 @@ html.js,
 	overflow-y:scroll;
    height:320px;
    display:block;
+   border-spacing: 10px;
 }
 
 /* Pages nav */

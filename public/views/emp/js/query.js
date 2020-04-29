@@ -1,7 +1,7 @@
 $(document).ready(function(){
-	$("#button1").click(function(){
+	$("#ebutton1").click(function(){
 		const request = new XMLHttpRequest();
-		request.open("get", "http://localhost:8000/?mod=1&query=1");
+		request.open("get", "http://localhost:8000/?emp=1&query=1");
 		request.onload = () => {
 			const unstructured = request.responseText.substring(1, request.responseText.length-1).split("\\").join("");
 			const json =JSON.parse(unstructured);
@@ -11,9 +11,10 @@ $(document).ready(function(){
 
 	})
 
-	$("#button2").click(function(){
+	$("#ebutton2").click(function(){
 		const request = new XMLHttpRequest();
-		request.open("get", "http://localhost:8000/?mod=1&query=2");
+		var loc  = document.getElementById('eq2i').value.toLowerCase();
+		request.open("get", "http://localhost:8000/?emp=1&query=2&loc="+loc);
 		request.onload = () => {
 			const unstructured = request.responseText.substring(1, request.responseText.length-1).split("\\").join("");
 			const json =JSON.parse(unstructured);
@@ -22,15 +23,13 @@ $(document).ready(function(){
 		request.send()
 	})
 
-	$("#button3").click(function(){
-		var rank  = document.getElementById('mq3i').value.toLowerCase();
-		var rankarr = ["sepoy", "lance naik", "naik", "havildar", "subedar", "subedar major",  "lieutenant",
-		"captain", "major", "lieutenant colonel", "colonel", "brigadier", "major general", "lieutenant general"];
+	$("#ebutton3").click(function(){
+		var rank  = document.getElementById('eq3i').value.toLowerCase();
+		var rankarr = ["leimakhong", "dras", "yol", "gurez"];
 		if(rankarr.includes(rank)){
-			var y = rank.split(" ").join("_");
 			
 		const request = new XMLHttpRequest();
-			request.open("get", "http://localhost:8000/?mod=1&query=3&val="+y);
+			request.open("get", "http://localhost:8000/?emp=1&query=3&loc="+rank);
 			request.onload = () => {
 				const unstructured = request.responseText.substring(1, request.responseText.length-1).split("\\").join("");
 				const json =JSON.parse(unstructured);
@@ -41,7 +40,7 @@ $(document).ready(function(){
 		}
 		else{
 			console.log(rank);
-			alert("Please choose a correct rank ");
+			alert("Please choose a correct location ");
 		}
 	})
 
@@ -91,81 +90,49 @@ $(document).ready(function(){
 	})
 })
 
-function populateTable5(json){
-	const tablebody = document.querySelector("#mq5t > tbody");
+function populateTable(json){
+	const tablebody = document.querySelector("#eq1t > tbody");
 		
 	while(tablebody.firstChild){
 		tablebody.removeChild(tablebody.firstChild);
 	}
-	for (var i = 0; i < json.length; i++){
-		const tr = document.createElement("tr");
-		for(var j = 1; j< 3; j++){
-			const td1 = document.createElement("td");
-			td1.textContent = json[i][j];
-			tr.appendChild(td1);
-		}
-		tablebody.appendChild(tr);
-	}
-}
-function populateTable4(json){
-	const tablebody = document.querySelector("#mq4t > tbody");
-		
-	while(tablebody.firstChild){
-		tablebody.removeChild(tablebody.firstChild);
-	}
-
 	const tr = document.createElement("tr");
-	const td1 = document.createElement("th"); td1.textContent = "Soldier ID"; tr.appendChild(td1);
-	const td2 = document.createElement("th"); td2.textContent = "Name"; tr.appendChild(td2);
-	const td3 = document.createElement("th"); td3.textContent = "Rank";tr.appendChild(td3);
+	const td1 = document.createElement("th"); td1.textContent = "Name"; tr.appendChild(td1);
+	const td2 = document.createElement("th"); td2.textContent = "Bank Account"; tr.appendChild(td2);
+	const td3 = document.createElement("th"); td3.textContent = "Bonus";tr.appendChild(td3);
 
 	tablebody.appendChild(tr);
+
 	for (var i = 0; i < json.length; i++){
 		const tr = document.createElement("tr");
 		for(var j = 1; j< 4; j++){
 			const td1 = document.createElement("td");
 			td1.textContent = json[i][j];
 			tr.appendChild(td1);
+
 		}
 		tablebody.appendChild(tr);
 	}
 }
+
 
 function populateTable3(json){
-	const tablebody = document.querySelector("#mq3t > tbody");
-		
-	while(tablebody.firstChild){
-		tablebody.removeChild(tablebody.firstChild);
-	}
-	for (var i = 0; i < json.length; i++){
-		const tr = document.createElement("tr");
-		for(var j = 1; j< 6; j++){
-			const td1 = document.createElement("td");
-			td1.textContent = json[i][j];
-			tr.appendChild(td1);
-		}
-		tablebody.appendChild(tr);
-	}
-}
-
-function populateTable2(json){
-	const tablebody = document.querySelector("#mq2t > tbody");
+	const tablebody = document.querySelector("#eq3t > tbody");
 		
 	while(tablebody.firstChild){
 		tablebody.removeChild(tablebody.firstChild);
 	}
 	const tr = document.createElement("tr");
-	const td1 = document.createElement("th"); td1.textContent = "Location"; tr.appendChild(td1);
-	const td2 = document.createElement("th"); td2.textContent = "total salary"; tr.appendChild(td2);
-	const td3 = document.createElement("th"); td3.textContent = "Ration cost";tr.appendChild(td3);
-	const td4 = document.createElement("th"); td4.textContent = "Ammo cost";tr.appendChild(td4);
-	const td5 = document.createElement("th"); td5.textContent = "Gun Cost";tr.appendChild(td5);
-	const td6 = document.createElement("th"); td6.textContent = "Total Cost";tr.appendChild(td6);
+	const td1 = document.createElement("th"); td1.textContent = "name"; tr.appendChild(td1);
+	const td2 = document.createElement("th"); td2.textContent = "retirement rank"; tr.appendChild(td2);
+	const td3 = document.createElement("th"); td3.textContent = "retirement date";tr.appendChild(td3);
+	const td4 = document.createElement("th"); td4.textContent = "age";tr.appendChild(td4);
+
 	tablebody.appendChild(tr);
 
 	for (var i = 0; i < json.length; i++){
 		const tr = document.createElement("tr");
-		for(var j = 1; j< 7; j++){
+		for(var j = 1; j< 5; j++){
 			const td1 = document.createElement("td");
 			td1.textContent = json[i][j];
 			tr.appendChild(td1);
@@ -173,31 +140,30 @@ function populateTable2(json){
 		}
 		tablebody.appendChild(tr);
 	}
-
-
 }
 
-function populateTable(json){
-	const tablebody = document.querySelector("#mq1t > tbody");
+
+function populateTable2(json){
+	const tablebody = document.querySelector("#eq2t > tbody");
+		
 	while(tablebody.firstChild){
 		tablebody.removeChild(tablebody.firstChild);
 	}
 	const tr = document.createElement("tr");
-	const td1 = document.createElement("th"); td1.textContent = "Location"; tr.appendChild(td1);
-	const td2 = document.createElement("th"); td2.textContent = "No. of Soldiers Deployed"; tr.appendChild(td2);
-		tablebody.appendChild(tr);
+	const td1 = document.createElement("th"); td1.textContent = "Department"; tr.appendChild(td1);
+	const td2 = document.createElement("th"); td2.textContent = "total emp"; tr.appendChild(td2);
+	const td3 = document.createElement("th"); td3.textContent = "total budget";tr.appendChild(td3);
+
+	tablebody.appendChild(tr);
 
 	for (var i = 0; i < json.length; i++){
 		const tr = document.createElement("tr");
-		const td1 = document.createElement("td");
-		const td2 = document.createElement("td");
-		td1.textContent = json[i].location;
-		td2.textContent = json[i].num;
-		tr.appendChild(td1);
-		tr.appendChild(td2);
-		tablebody.appendChild(tr);
-		
-	}
-	
+		for(var j = 1; j< 4; j++){
+			const td1 = document.createElement("td");
+			td1.textContent = json[i][j];
+			tr.appendChild(td1);
 
+		}
+		tablebody.appendChild(tr);
+	}
 }

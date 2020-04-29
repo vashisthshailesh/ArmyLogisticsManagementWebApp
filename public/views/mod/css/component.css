@@ -332,6 +332,7 @@ html.js,
 	overflow-y:scroll;
    height:320px;
    display:block;
+   border-spacing: 10px;
 }
 
 th,td{

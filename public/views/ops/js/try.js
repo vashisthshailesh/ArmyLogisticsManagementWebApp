@@ -3,6 +3,11 @@ $("#button6").click(function(){
 
 	})
 
+$("#obutton2").click(function(){
+		window.location ="pie.html";
+
+	})
+
 
 $("#button1").click(function(){
  	var x= ["ranchi", "dibrugarh", "bomdila", "gangtok", "zakhama", "rangia", "binnaguri", "leimaKhong", "missamari", "kalimpong", "panagarh", "pathankot", "dimapur", "tezpur", "siliguri", "leh", "baramulla", "akhnoor", "dras", "gurez", "rajouri", "yol", "srinagar", "nagrota", "pune", "ahmedabad", "jhansi", "jodhpur", "sagar", "hyderabad", "bhopal", "jaipur"]
