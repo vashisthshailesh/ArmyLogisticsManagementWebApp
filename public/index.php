@@ -440,6 +440,35 @@ $app->get('/', function($request, $response, $args){
 				echo's;';
 			}
 		}
+
+		else if($p['query'] == 3){
+			if($stmt = mysqli_prepare($conn,'SELECT  l.name, (
+		        SELECT COUNT(*)
+		        FROM   attacks a where a.location = l.name
+		        ) AS noAttacks,
+		        (
+		        SELECT COUNT(*)
+		        FROM   soldier s where s.currentPosting = l.name
+		        ) AS noSoldiers, l.criticalLevel, l.securityLevel
+				FROM  location l
+				order by noAttacks desc;')){
+				$locarray = array();
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z,$a ,$b);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+		}
 	}
 
 
@@ -448,6 +477,32 @@ $app->get('/', function($request, $response, $args){
 		if($p['query'] == 1){
 			session_start();
 			$_SESSION['place'] = $p['place'];
+		}
+		if($p['query'] == 4){
+			if($stmt = mysqli_prepare($conn,'select p.name, s.name, p.description as Suspicion, s.currentPosting as AreaCompromized
+			from potentialSecuritythreats p, soldier s where
+			(select count(*) from communication c where
+			c.toLocation = s.currentPosting and c.fromLocation = p.location and c.sid = s.sid) > 1;'))
+			{	
+				
+				//mysqli_stmt_bind_param($stmt,'s',$id);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y ,$z ,$a);
+				$locarray = array();
+				$i = 0;
+				while (mysqli_stmt_fetch($stmt)) {
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$i= $i+1;
+				}
+
+				return $response->withJson(json_encode($locarray));
+			}
+			else{
+				echo'ss';
+			}
 		}
 	}
 
@@ -624,21 +679,36 @@ $app->get('/', function($request, $response, $args){
 			}
 
 	}
-	else if(isset($p['email'])){
+	else if(isset($p['email']) && isset($p['pass'])){
 
 		if ($stmt = mysqli_prepare($conn, 'SELECT * FROM Log WHERE Id = ?')) {
 			$id = $p['email'];
-
+			$upas = md5($p['pass']);
 			mysqli_stmt_bind_param($stmt, 'i', $id );
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_bind_result($stmt, $name, $pas, $prior);
 			$temp1 = -1;
+			$pass ;
+			
 			while (mysqli_stmt_fetch($stmt)){
 				$temp1 = $prior;
-        		printf ("%s (%s) - (%s) \n", $name, $pas, $prior);
+				$pass = $pas;
+				//echo $pas;
+        		//printf ("%s (%s) - (%s) \n", $name, $pas, $prior);
     		}
+
     		//var_dump($temp1);
-    		if($temp1 == 1){
+    		
+    		$fpp = substr($upas, intval(strlen($upas))-2);
+    		$pass =$pass.$fpp;
+    		if($upas != $pass){
+
+    			
+    			//echo $fpp;
+    			$this->view->render($response,"index.html");
+    		}
+
+    		else if($temp1 == 1){
     			return $this->view->render($response,"mod/index.html");
     		}
     		else if($temp1 == 2){

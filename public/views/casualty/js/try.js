@@ -69,6 +69,44 @@ $("#cbutton2").click(function(){
 	}
 })
 
+$("#cbutton3").click(function(){
+	const request = new XMLHttpRequest();
+	request.open("get", "http://localhost:8000/?cas=1&query=3");
+	request.onload = () => {
+		const unstructured = request.responseText.substring(1, request.responseText.length-1).split("\\").join("");
+		const json =JSON.parse(unstructured);
+		populateTable3(json);
+	};
+	request.send()
+})
+
+function populateTable3(json){
+
+	const tablebody = document.querySelector("#cq3t > tbody");
+		
+	while(tablebody.firstChild){
+		tablebody.removeChild(tablebody.firstChild);
+	}
+
+	const tr = document.createElement("tr");
+	const td1 = document.createElement("th"); td1.textContent = "Location"; tr.appendChild(td1);
+	const td2 = document.createElement("th"); td2.textContent = "No. of Attacks"; tr.appendChild(td2);
+	const td3 = document.createElement("th"); td3.textContent = "No. of soldeir";tr.appendChild(td3);
+	const td4 = document.createElement("th"); td4.textContent = "Crtitcal Level"; tr.appendChild(td4);
+	const td5 = document.createElement("th"); td5.textContent = "Security Level";tr.appendChild(td5);
+
+	tablebody.appendChild(tr);
+	for (var i = 0; i < json.length; i++){
+		const tr = document.createElement("tr");
+		for(var j = 1; j< 6; j++){
+			const td1 = document.createElement("td");
+			td1.textContent = json[i][j];
+			tr.appendChild(td1);
+		}
+		tablebody.appendChild(tr);
+	}
+
+}
 
 
 function populateTable2(json){

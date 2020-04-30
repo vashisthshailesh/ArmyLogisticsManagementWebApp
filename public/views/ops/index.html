@@ -6,9 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Hydra</title>
-	<meta name="description" content="Blueprint: A basic template for a page stack navigation effect" />
-	<meta name="keywords" content="blueprint, template, html, css, page stack, 3d, perspective, navigation, menu" />
-	<meta name="author" content="Codrops" />
+	<meta name="author" content="shailesh" />
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
@@ -21,16 +19,17 @@
 <body>
 	<!-- navigation -->
 	<nav class="pages-nav">
-		<div class="pages-nav__item"><a class="link link--page" href="#page-home"> major terrorist threats and the agents monitoring them</a></div>
-		<div class="pages-nav__item"><a class="link link--page" href="#page-docu"> What is the securityLevel at different locations?  </a></div>
+	<!-- 	<div class="pages-nav__item"><a class="link link--page" href="#page-home"> major terrorist threats and the agents monitoring them</a></div> -->
+		<div class="pages-nav__item"><a class="link link--page" href="#page-home"> What is the securityLevel at different locations?  </a></div>
 
 		<div class="pages-nav__item"><a class="link link--page" href="#page-manuals">Agent having suspicious communication </a></div>
 		
 		<div class="pages-nav__item"><a class="link link--page" href="#page-software">Number of communications happening from the input location</a></div>
 		
 		<div class="pages-nav__item"><a class="link link--page" href="#page-custom">Analysis of attack based on its kind</a></div>
+		
+		<!-- <div class="pages-nav__item"><a class="link link--page" href="#page-training">Recruitment for Dpecial Ops</a></div> -->
 		<!-- 
-		<div class="pages-nav__item"><a class="link link--page" href="#page-training"></a></div>
 		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-buy"></a></div>
 		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-blog"></a></div>
 		<div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-contact"></a></div>
@@ -41,28 +40,33 @@
 	<!-- pages stack -->
 	<div class="pages-stack">
 		<!-- page -->
-		<div class="page" id="page-home">
-			<!-- Blueprint header -->
+		<!-- <div class="page" id="page-home">
+			
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">Query</h1>
 				<p class="bp-header__desc">For Special Ops</a></p>
 				<p class="info">What are some of the major terrorist threats and who are the agents
 				assigned to monitor them? Are all the assets checking in regularly?
 				</p>
+				<button id = "obutton4" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
+				<table id = "oq4t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
-			<img class="poster" src="views/mod/images/1.jpg" alt="img01" />
-		</div>
+			<img class="poster" src="views/mod/images/1.png" alt="img01" />
+		</div> -->
 		<!-- /page -->
-		<div class="page" id="page-docu">
+		<div class="page" id="page-home">
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">Query</h1>
 				<p class="bp-header__desc">For Special Ops</p>
 				<p class="info">
 					What is the securityLevel at different locations?<br>
-					<button id = "button6" style="font-size: 16px; padding: 5px 10px; margin-top: 10px;" >show on map</button>
 				</p>
+			<button id = "button6" style="font-size: 16px; padding: 5px 10px; margin-top: 10px;" >show on map</button>
+				
 			</header>
-			<img class="poster" src="views/mod/images/6.jpg" alt="img06" />
+			<img class="poster" src="views/mod/images/1.png" alt="img06" />
 		</div>
 		<div class="page" id="page-manuals">
 			<header class="bp-header cf">
@@ -72,15 +76,19 @@
 					Is there any agent who’s been having suspicious communication
 					with the same area as one of the potential terrorist threats?
 				</p>
+				<button id = "obutton4" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
+				<table id = "oq4t" class ="table">
+					<tbody> </tbody>
+				</table>
 				
 			</header>
-			<img class="poster" src="views/mod/images/2.jpg" alt="img02" />
+			<img class="poster" src="views/mod/images/2.png" alt="img02" />
 		</div>
 		
 		<div class="page" id="page-software">
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">query</h1>
-				<p class="bp-header__desc">For Ministry of Defence</p>
+				<p class="bp-header__desc">For Special Ops</p>
 				<p class="info">
 					What are the number of communications happening from the input location?
 				</p>
@@ -91,32 +99,43 @@
 				<button id = "button1" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
 				<!-- <button id = "button2" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >Show on Map</button> -->
 			</header>
-			<img class="poster" src="views/mod/images/3.jpg" alt="img03" />
+			<img class="poster" src="views/mod/images/3.png" alt="img03" />
 		</div>
 		
 		<div class="page" id="page-custom">
 			<header class="bp-header cf">
-				<h1 class="bp-header__title">Customization &amp; Settings</h1>
-				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc"> For Special Ops</p>
 				<p class="info">
 					Analysis of attacks based on the description of the attack.
 				</p>
 				<button id = "obutton2" style="font-size: 16px; margin-left: 8px;padding: 5px 10px;" >get query</button>
 			</header>
 			
-			<img class="poster" src="views/mod/images/4.jpg" alt="img04" />
+			<img class="poster" src="views/mod/images/4.png" alt="img04" />
 		</div>
 		<!-- 
 		<div class="page" id="page-training">
 			<header class="bp-header cf">
-				<h1 class="bp-header__title">Training &amp; Learning Center</h1>
-				<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
+				<h1 class="bp-header__title">Query</h1>
+				<p class="bp-header__desc">For special Ops</p>
 				<p class="info">
-					"The moment I began to understand what was going on with the treatment of animals, it led me more and more in the way of the path I am [on] now, which is a complete vegan." &mdash; Bryan Adams
+					Who is one of the most specialized and decorated soldiers which can
+					be recruited into special ops - location wise ? 
 				</p>
+				<p class="bp-header__desc"> choose from the below mentioned locations :- 
+				 Ranchi, Dibrugarh, Bomdila, Gangtok, Zakhama, Rangia, Binnaguri, LeimaKhong, Missamari, Kalimpong, Panagarh, Pathankot, Dimapur, Tezpur, Siliguri, Leh, Baramulla, Akhnoor, Dras, Gurez, Rajouri, Yol, Srinagar, Nagrota, Pune, Ahmedabad, Jhansi, Jodhpur, Sagar, Hyderabad, Bhopal, Jaipur</p>
+				 location: <input type="text" id="oq3i" value ="">
+				<button id = "obutton3" style="font-size: 16px; padding: 5px 10px;" >get query</button>
+				
+				
+				<table id = "oq3t" class ="table">
+					<tbody> </tbody>
+				</table>
 			</header>
 			<img class="poster" src="views/mod/images/5.jpg" alt="img05" />
 		</div>
+		
 		<div class="page" id="page-buy">
 			<header class="bp-header cf">
 				<h1 class="bp-header__title">Where to buy</h1>
