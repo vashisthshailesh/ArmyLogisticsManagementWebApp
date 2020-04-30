@@ -368,6 +368,66 @@ $app->get('/', function($request, $response, $args){
 		}
 	}
 
+	else if(isset($p['inven']) && isset($p['query']) ){
+		if($p['query'] == 1){
+			if($stmt = mysqli_prepare($conn,'select i.InventoryiD, i.location,
+7*((select count(*) from soldier s1 where s1.currentPosting = l.name) + 
+(select count(*) from employee e1 where e1.location = l.name)) as requieredRation,
+i.checkedRation as actualRation, 
+l.securityLevel * 7000 as requieredAmmo, i.actualAmmo,  l.criticalLevel*200 as requieredGuns,
+i.checkedGuns as actualGuns
+from inventory i, location l where i.location = l.name and 
+(7*((select count(*) from soldier s1 where s1.currentPosting = l.name) + 
+(select count(*) from employee e1 where e1.location = l.name)) > i.checkedRation 
+or l.securityLevel * 7000 > i.actualAmmo or l.criticalLevel*200 > i.checkedGuns);
+')){
+				$locarray = array();
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z ,$a, $b, $c, $d ,$e);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$locarray[$i]["6"] = $c;
+					$locarray[$i]["7"] = $d;
+					$locarray[$i]["8"] = $e;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+		}
+
+		if($p['query'] == 2){
+			if($stmt = mysqli_prepare($conn,'select s.SID, s.name, (select sum(i.expectedRation) from inventory i where i.SID = s.SID) - (select sum(checkedRation) from inventory where SID = s.SID) as differenceRation,
+(select sum(expectedAmmo) from inventory where SID = s.SID) - (select sum(actualAmmo) from inventory where SID = s.SID) as differenceAmmo,
+(select sum(expectedGuns) from inventory where SID = s.SID) - (select sum(checkedGuns) from inventory where SID = s.SID) as differenceGuns
+from soldier s
+where s.SID in (select SID from inventory)
+order by (select sum(expectedGuns) from inventory where SID = s.SID) - (select sum(checkedGuns) from inventory where SID = s.SID) desc;')){
+				$locarray = array();
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $x, $y, $z ,$a, $b);
+				$i = 0;
+				
+				while (mysqli_stmt_fetch($stmt)){	
+					$locarray[$i]["1"] = $x;
+					$locarray[$i]["2"] = $y;
+					$locarray[$i]["3"] = $z;
+					$locarray[$i]["4"] = $a;
+					$locarray[$i]["5"] = $b;
+					$i= $i+1;	        		
+    			}
+    			//var_dump($locarray);
+    			return $response->withJson(json_encode($locarray));
+			}
+		}
+	}
+
 	else if(isset($p['cas']) && isset($p['query']) ){
 		if($p['query'] == 1){
 			$xcor = strval($p['x']);
